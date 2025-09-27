@@ -1,4 +1,4 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { BookingsRepository } from './bookings.repository';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { Booking } from './entities/booking.entity';
@@ -7,9 +7,13 @@ import { Booking } from './entities/booking.entity';
 export class BookingsService {
   constructor(private readonly bookingsRepository: BookingsRepository) {}
 
-  create(_createBookingDto: CreateBookingDto): Booking {
-    // Service logic intentionally left out for workshop implementation.
-    throw new NotImplementedException('create booking flow not implemented');
+  create(createBookingDto: CreateBookingDto): Booking {
+    const payload = {
+      flightNumber: createBookingDto.flightNumber,
+      passengerName: createBookingDto.passengerName,
+      seat: createBookingDto.seatPreference,
+    };
+    return this.bookingsRepository.create(payload);
   }
 
   findAll(): Booking[] {
@@ -20,7 +24,7 @@ export class BookingsService {
     return this.bookingsRepository.findById(id);
   }
 
-  updateStatus(_id: string, _status: Booking['status']): Booking {
-    throw new NotImplementedException('status updates not implemented');
+  updateStatus(id: string, status: Booking['status']): Booking {
+    return this.bookingsRepository.updateStatus(id, status);
   }
 }

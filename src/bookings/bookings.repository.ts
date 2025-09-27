@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Booking } from './entities/booking.entity';
 
 @Injectable()
@@ -13,12 +13,37 @@ export class BookingsRepository {
     return this.store.find((booking) => booking.id === id);
   }
 
-  create(_payload: Partial<Booking>): Booking {
-    // Repository logic will be added during the demo.
-    throw new Error('create repository method not implemented');
+  create(payload: Partial<Booking>): Booking {
+    const now = new Date();
+    const booking: Booking = {
+      id: crypto.randomUUID(),
+      flightNumber: payload.flightNumber!,
+      passengerName: payload.passengerName!,
+      seat: payload.seat,
+      status: payload.status || 'PENDING',
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    this.store.push(booking);
+    return booking;
   }
 
-  updateStatus(_id: string, _status: Booking['status']): Booking {
-    throw new Error('update repository method not implemented');
+  updateStatus(id: string, status: Booking['status']): Booking {
+    const bookingIndex = this.store.findIndex((booking) => booking.id === id);
+
+    if (bookingIndex === -1) {
+      throw new NotFoundException(`Booking with id ${id} not found`);
+    }
+
+    const booking = this.store[bookingIndex];
+    const updatedBooking = {
+      ...booking,
+      status,
+      updatedAt: new Date(),
+    };
+
+    this.store[bookingIndex] = updatedBooking;
+    return updatedBooking;
   }
 }
