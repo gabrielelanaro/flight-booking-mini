@@ -57,7 +57,7 @@ The application follows a modular NestJS architecture with clean separation of c
 
 - **Never use `any`**: Always import proper types and use specific type assertions
 - **Type safety first**: Maintain type safety throughout the codebase, including tests
-- **Proper imports**: Import specific types (express.Application) instead of using generic workarounds
+- **Proper imports**: Import specific types instead of using generic workarounds
 
 ## API Development Best Practices
 
