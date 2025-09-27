@@ -1,10 +1,10 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- `src/app.module.ts` composes the Nest module tree; feature code stays within `src/bookings/` where controller, service, repository, `dto/`, and `entities/` are separated for clarity.
+- `src/app.module.ts` composes the Nest module tree; feature code stays within `src/<feature-name>/` where controller, service, repository, `dto/`, and `entities/` are separated for clarity.
 - `src/main.ts` bootstraps the HTTP server; update global pipes or middleware here when adjusting request handling.
-- API contracts and mocks belong with their feature in `src/bookings/dto` and `src/bookings/entities`; share-only utilities can live in a future `src/common/` folder.
-- Integration tests sit in `test/` (`bookings.e2e-spec.ts`); keep fixtures close to their spec files to simplify maintenance.
+- API contracts and mocks belong with their feature in `src/<feature-name>/dto` and `src/<feature-name>/entities`; share-only utilities can live in a future `src/common/` folder.
+- Integration tests sit in `test/` (`<feature-name>.e2e-spec.ts`); keep fixtures close to their spec files to simplify maintenance.
 
 ## Build, Test, and Development Commands
 - `npm run start:dev` — launches the Nest server with watch mode for local iteration.
