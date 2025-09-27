@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 describe('AppModule', () => {
   it('bootstraps successfully', async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule]
+      imports: [AppModule],
     }).compile();
 
     const app = moduleRef.createNestApplication();
