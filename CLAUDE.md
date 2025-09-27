@@ -79,8 +79,12 @@ The application follows a modular NestJS architecture with clean separation of c
 ## Testing Structure
 
 - Unit tests: Co-located with source files (`*.spec.ts`)
-- E2E tests: `test/bookings.e2e-spec.ts`
+- E2E tests: `test/*.e2e-spec.ts`
 - Jest configuration uses SWC for faster test execution
+- Type nest http server like this in e2e tests:
+  ```ts
+  const server = app.getHttpServer() as unknown as Server;
+  ```
 
 ## Dependencies
 
