@@ -7,7 +7,7 @@ import { Booking } from './entities/booking.entity';
 export class BookingsService {
   constructor(private readonly bookingsRepository: BookingsRepository) {}
 
-  create(createBookingDto: CreateBookingDto): Booking {
+  create(_createBookingDto: CreateBookingDto): Booking {
     // Service logic intentionally left out for workshop implementation.
     throw new NotImplementedException('create booking flow not implemented');
   }
@@ -20,7 +20,7 @@ export class BookingsService {
     return this.bookingsRepository.findById(id);
   }
 
-  updateStatus(id: string, status: Booking['status']): Booking {
+  updateStatus(_id: string, _status: Booking['status']): Booking {
     throw new NotImplementedException('status updates not implemented');
   }
 }
