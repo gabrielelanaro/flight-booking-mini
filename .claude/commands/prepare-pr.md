@@ -4,7 +4,8 @@ You should prepare a pull request on GitHub using the `gh` command line tool by 
 2. Search github issues if this is related to any of the recent issues using `gh` commandline
 3. Create and checkout a new branch named after the work, e.g. `feature/my-change` unless we are already on the branch dedicated to this feature
 4. Commit your changes with a descriptive message
-5. Open a pull request using the branch and include:
+5. Push the branch
+6. Open a pull request using the branch and include:
    - A concise summary of the change
    - Testing notes (what you ran, or why tests were skipped)
 
