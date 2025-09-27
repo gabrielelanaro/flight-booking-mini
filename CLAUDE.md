@@ -59,6 +59,54 @@ The application follows a modular NestJS architecture with clean separation of c
 - **Type safety first**: Maintain type safety throughout the codebase, including tests
 - **Proper imports**: Import specific types instead of using generic workarounds
 
+## Linting Best Practices
+
+- **Catch blocks**: Use parameterless `catch` instead of unused variables:
+  ```ts
+  // ❌ Avoid:
+  catch (_) { ... }
+  catch (__unused) { ... }
+
+  // ✅ Do:
+  catch { ... }
+  ```
+
+- **HTTP server typing in e2e tests**: Properly type NestJS HTTP server:
+  ```ts
+  // ❌ Avoid:
+  await request(app.getHttpServer())
+
+  // ✅ Do:
+  const server = app.getHttpServer() as unknown as Server;
+  await request(server)
+  ```
+
+- **Response body type assertions**: Use appropriate type casting for test assertions:
+  ```ts
+  // For typed responses:
+  expect((response.body as Booking).id).toBe(expectedId)
+
+  // For error responses (avoid 'any'):
+  interface ErrorResponse {
+    message: string | string[];
+    error: string;
+    statusCode: number;
+  }
+  expect((response.body as ErrorResponse).message).toContain('error')
+
+  // For array elements:
+  expect((response.body[0] as Booking).flightNumber).toBe('FL123')
+
+  // For arrays (alternative approach):
+  const bookings = response.body as Booking[];
+  expect(bookings[0].id).toBe(expectedId)
+  ```
+
+- **Server import**: Always import the Server type from 'http' in e2e tests:
+  ```ts
+  import { Server } from 'http';
+  ```
+
 ## API Development Best Practices
 
 - **Validation pipes**: Use NestJS ValidationPipe for automatic request validation
