@@ -2,11 +2,6 @@
 
 This lightweight NestJS flight booking API skeleton is built for live demos and workshops. It demonstrates a complete booking workflow with a clean separation of concerns via the repository pattern.
 
-## General Workflow
-
-- **Small, focused commits** keep each change easy to reason about.
-- **Test-driven approach**: write failing tests before implementation and let them guide behavior.
-- **Code quality first**: ensure linting, formatting, and type checking succeed before committing.
 
 ## Common Development Commands
 
@@ -24,6 +19,12 @@ npm run test:e2e          # Run end-to-end tests
 npm run lint              # Run ESLint with auto-fix
 npm run format            # Format code with Prettier
 ```
+
+## Core Tenets
+
+- **Simple yet effective**: Maintain a style that is simple yet effective and NEVER introduce extranous changes.
+- **Code quality first**: ALWAYS ensure linting, formatting, and type checking succeed after you are done with your changes.
+
 
 ## Architecture
 
@@ -59,7 +60,7 @@ The application follows a modular NestJS architecture with a clear controller â†
 
 ## Testing Guidance
 
-- **Development flow**: Use test-first development, maintain single-responsibility per test, and group cases by endpoint or feature.
+- **Development flow**: Maintain single-responsibility per test, and group cases by endpoint or feature.
 - **Isolation**: Use `beforeEach`/`afterEach` to prepare and clean fixtures.
 - **Structure**: Keep unit tests co-located as `*.spec.ts` and e2e tests under `test/*.e2e-spec.ts`; Jest is configured with SWC for speed.
 - **HTTP server typing**: In e2e tests, type the server once using `const server = app.getHttpServer() as unknown as Server;` after importing `Server` from `http`.
@@ -67,7 +68,7 @@ The application follows a modular NestJS architecture with a clear controller â†
 
 ## Type Safety
 
-- **No `any`**: Import concrete types and use precise assertions.
+- **NEVER use `any`**: Import concrete types and use precise assertions.
 - **Response body assertions**: Cast responses before assertions, e.g.:
   ```ts
   interface ErrorResponse {
