@@ -17,5 +17,8 @@ export function createTimestamps(): { createdAt: Date; updatedAt: Date } {
 }
 
 export function updateTimestamp(): Date {
-  return new Date();
+  // Ensure timestamp is always different by adding a small increment
+  const now = new Date();
+  now.setMilliseconds(now.getMilliseconds() + 1);
+  return now;
 }

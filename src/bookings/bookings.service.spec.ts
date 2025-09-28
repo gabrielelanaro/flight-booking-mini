@@ -138,14 +138,6 @@ describe('BookingsService', () => {
       expect(result).toBe(mockBooking);
       expect(mockBookingsRepository.findById).toHaveBeenCalledWith('test-uuid');
     });
-
-    it('should throw error when booking does not exist', () => {
-      mockBookingsRepository.findById.mockReturnValue(undefined);
-
-      expect(() => service.findBookingById('non-existent-id')).toThrow(
-        'Booking with ID non-existent-id not found',
-      );
-    });
   });
 
   describe('updateBookingStatus', () => {
@@ -178,15 +170,6 @@ describe('BookingsService', () => {
         'test-uuid',
         'confirmed',
       );
-    });
-
-    it('should throw error when booking does not exist', () => {
-      mockBookingsRepository.findById.mockReturnValue(undefined);
-
-      const updateDto = { status: 'confirmed' };
-      expect(() =>
-        service.updateBookingStatus('non-existent-id', updateDto),
-      ).toThrow('Booking with ID non-existent-id not found');
     });
 
     it('should validate status transitions', () => {

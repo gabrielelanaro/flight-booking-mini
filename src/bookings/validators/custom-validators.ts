@@ -71,7 +71,9 @@ export function IsDateAfter(
         validate(value: unknown, args: ValidationArguments) {
           if (!value) return true;
 
-          const relatedDate = new Date((args.object as Record<string, unknown>)[property] as string);
+          const relatedDate = new Date(
+            (args.object as Record<string, unknown>)[property] as string,
+          );
           const thisDate = new Date(value as string);
 
           return (
