@@ -1,4 +1,4 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { BookingsRepository } from './bookings.repository';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { Booking } from './entities/booking.entity';
@@ -7,20 +7,31 @@ import { Booking } from './entities/booking.entity';
 export class BookingsService {
   constructor(private readonly bookingsRepository: BookingsRepository) {}
 
-  create(_createBookingDto: CreateBookingDto): Booking {
-    // Service logic intentionally left out for workshop implementation.
-    throw new NotImplementedException('create booking flow not implemented');
+  create(createBookingDto: CreateBookingDto): Booking {
+    return this.bookingsRepository.create({
+      flightNumber: createBookingDto.flightNumber,
+      passengerName: createBookingDto.passengerName,
+      seat: createBookingDto.seatPreference,
+    });
   }
 
   findAll(): Booking[] {
     return this.bookingsRepository.findAll();
   }
 
-  findOne(id: string): Booking | undefined {
-    return this.bookingsRepository.findById(id);
+  findOne(id: string): Booking {
+    const booking = this.bookingsRepository.findById(id);
+    if (!booking) {
+      throw new NotFoundException(`Booking with ID ${id} not found`);
+    }
+    return booking;
   }
 
-  updateStatus(_id: string, _status: Booking['status']): Booking {
-    throw new NotImplementedException('status updates not implemented');
+  updateStatus(id: string, status: Booking['status']): Booking {
+    const booking = this.bookingsRepository.findById(id);
+    if (!booking) {
+      throw new NotFoundException(`Booking with ID ${id} not found`);
+    }
+    return this.bookingsRepository.updateStatus(id, status);
   }
 }
