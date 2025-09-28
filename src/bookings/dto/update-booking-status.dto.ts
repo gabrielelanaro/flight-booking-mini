@@ -1,8 +1,8 @@
-import { IsIn, IsString } from 'class-validator';
-import { BookingStatus } from '../entities/booking.entity';
+import { IsIn, IsNotEmpty, IsString } from 'class-validator';
 
 export class UpdateBookingStatusDto {
   @IsString()
-  @IsIn(['PENDING', 'CONFIRMED', 'CANCELLED'] satisfies BookingStatus[])
-  status!: BookingStatus;
+  @IsNotEmpty()
+  @IsIn(['pending', 'confirmed', 'cancelled'])
+  status!: string;
 }
