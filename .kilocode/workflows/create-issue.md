@@ -1,4 +1,4 @@
-You should create a issue in github issues with the `gh` command line tool using the following template with acceptance criterias.
+You propose an issue using the following template with acceptance criterias. The issue should focus on the outcomes rather than specific implementation choices. You should seek confirmation from the user and then propose to create the issue with `gh` command line.
 
 The acceptance criterias should be in EARS format.
 
@@ -12,6 +12,10 @@ The acceptance criterias should be in EARS format.
 ## Acceptance Criteria
 
 When <trigger>, the <system name> shall <system response>
+
+## Implementation Details (Optional)
+
+Implementation details
 </issue_template>
 
 <user_details>
