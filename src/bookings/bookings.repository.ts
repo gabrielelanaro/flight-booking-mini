@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 import { Booking } from './entities/booking.entity';
 
 @Injectable()
@@ -13,12 +14,28 @@ export class BookingsRepository {
     return this.store.find((booking) => booking.id === id);
   }
 
-  create(_payload: Partial<Booking>): Booking {
-    // Repository logic will be added during the demo.
-    throw new Error('create repository method not implemented');
+  create(payload: Partial<Booking>): Booking {
+    const now = new Date();
+    const booking: Booking = {
+      id: randomUUID(),
+      flightNumber: payload.flightNumber!,
+      passengerName: payload.passengerName!,
+      seat: payload.seat,
+      status: 'PENDING',
+      createdAt: now,
+      updatedAt: now,
+    };
+    this.store.push(booking);
+    return booking;
   }
 
-  updateStatus(_id: string, _status: Booking['status']): Booking {
-    throw new Error('update repository method not implemented');
+  updateStatus(id: string, status: Booking['status']): Booking {
+    const booking = this.findById(id);
+    if (!booking) {
+      throw new Error(`Booking with id ${id} not found`);
+    }
+    booking.status = status;
+    booking.updatedAt = new Date();
+    return booking;
   }
 }
